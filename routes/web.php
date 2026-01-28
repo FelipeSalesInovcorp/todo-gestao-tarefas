@@ -9,9 +9,14 @@ Route::get('/', function () {
 })->name('home');
 
 // Dashboard Route
-Route::view('dashboard', 'dashboard')
+/*Route::view('dashboard', 'dashboard')
     ->middleware(['auth', 'verified'])
-    ->name('dashboard');
+    ->name('dashboard');*/
+
+Route::get('/dashboard', function () {
+    return redirect()->route('tasks.index');
+})->middleware(['auth', 'verified'])->name('dashboard');
+
 
 // Include additional route files
 Route::middleware(['auth', 'verified'])->group(function () {
@@ -24,4 +29,4 @@ Route::middleware(['auth', 'verified'])->group(function () {
 });
 
 // Settings Routes
-require __DIR__.'/settings.php';
+require __DIR__ . '/settings.php';
