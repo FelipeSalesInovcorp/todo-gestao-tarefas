@@ -1,0 +1,48 @@
+@php
+    $priority = $task->priority;
+
+    $priorityLabel = match ($priority) {
+        'high' => '🔥 Alta',
+        'medium' => '🟡 Média',
+        'low' => '🟢 Baixa',
+        default => ucfirst($priority),
+    };
+
+    $priorityClasses = match ($priority) {
+        'high' => 'bg-red-50 text-red-700 ring-red-200',
+        'medium' => 'bg-amber-50 text-amber-800 ring-amber-200',
+        'low' => 'bg-emerald-50 text-emerald-700 ring-emerald-200',
+        default => 'bg-zinc-50 text-zinc-700 ring-zinc-200',
+    };
+
+    $statusLabel = $task->is_completed ? 'Concluída' : 'Pendente';
+    $statusClasses = $task->is_completed
+        ? 'bg-green-50 text-green-700 ring-green-200'
+        : 'bg-zinc-50 text-zinc-700 ring-zinc-200';
+
+    $dueText = $task->due_date?->format('d/m/Y');
+
+    // vencida (se não concluída)
+    $isOverdue = $task->due_date && !$task->is_completed && $task->due_date->isPast();
+@endphp
+
+<div class="flex flex-wrap items-center gap-2">
+    <span class="inline-flex items-center rounded-full px-2 py-1 text-xs font-medium ring-1 ring-inset {{ $priorityClasses }}">
+        Prioridade: {{ $priorityLabel }}
+    </span>
+
+    <span class="inline-flex items-center rounded-full px-2 py-1 text-xs font-medium ring-1 ring-inset {{ $statusClasses }}">
+        {{ $statusLabel }}
+    </span>
+
+    @if($dueText)
+        <span class="inline-flex items-center rounded-full px-2 py-1 text-xs font-medium ring-1 ring-inset
+            {{ $isOverdue ? 'bg-rose-50 text-rose-700 ring-rose-200' : 'bg-indigo-50 text-indigo-700 ring-indigo-200' }}">
+            Vence: {{ $dueText }}{{ $isOverdue ? ' (atrasada)' : '' }}
+        </span>
+    @else
+        <span class="inline-flex items-center rounded-full px-2 py-1 text-xs font-medium ring-1 ring-inset bg-zinc-50 text-zinc-700 ring-zinc-200">
+            Sem vencimento
+        </span>
+    @endif
+</div>

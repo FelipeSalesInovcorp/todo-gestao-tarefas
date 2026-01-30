@@ -9,13 +9,13 @@ Route::get('/', function () {
 })->name('home');
 
 // Dashboard Route
-/*Route::view('dashboard', 'dashboard')
+Route::view('dashboard', 'dashboard')
     ->middleware(['auth', 'verified'])
-    ->name('dashboard');*/
+    ->name('dashboard');
 
-Route::get('/dashboard', function () {
+/*Route::get('/dashboard', function () {
     return redirect()->route('tasks.index');
-})->middleware(['auth', 'verified'])->name('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');*/
 
 
 // Include additional route files
