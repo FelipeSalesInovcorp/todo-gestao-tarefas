@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TaskController;
+use App\Http\Controllers\DashboardController;
+
 
 //  Web Routes
 Route::get('/', function () {
@@ -9,9 +11,14 @@ Route::get('/', function () {
 })->name('home');
 
 // Dashboard Route
-Route::view('dashboard', 'dashboard')
+/*Route::view('dashboard', 'dashboard')
+    ->middleware(['auth', 'verified'])
+    ->name('dashboard');*/
+
+Route::get('/dashboard', [DashboardController::class, 'index'])
     ->middleware(['auth', 'verified'])
     ->name('dashboard');
+
 
 /*Route::get('/dashboard', function () {
     return redirect()->route('tasks.index');
