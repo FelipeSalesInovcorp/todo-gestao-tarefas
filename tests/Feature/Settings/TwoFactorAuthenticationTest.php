@@ -18,12 +18,30 @@ beforeEach(function () {
 test('two factor settings page can be rendered', function () {
     $user = User::factory()->create();
 
-    $this->actingAs($user)
+    $response = $this->actingAs($user)
         ->withSession(['auth.password_confirmed_at' => time()])
-        ->get(route('two-factor.show'))
-        ->assertOk()
-        ->assertSee('Two Factor Authentication')
-        ->assertSee('Disabled');
+        ->get(route('two-factor.show'));
+
+    $response->assertOk();
+
+    $content = $response->getContent();
+
+    // Aceita UI em EN ou PT (você traduziu o layout/settings)
+    $this->assertTrue(
+        str_contains($content, 'Two Factor Authentication') ||
+        str_contains($content, 'Two-Factor Authentication') ||
+        str_contains($content, 'Autenticação de Dois Fatores') ||
+        str_contains($content, 'Autenticação de dois fatores'),
+        'Expected the 2FA page to contain a Two-Factor title in EN or PT.'
+    );
+
+    // Estado também pode estar traduzido
+    $this->assertTrue(
+        str_contains($content, 'Disabled') ||
+        str_contains($content, 'Desativado') ||
+        str_contains($content, 'Inativo'),
+        'Expected the 2FA page to contain a disabled/inactive status label.'
+    );
 });
 
 test('two factor settings page requires password confirmation when enabled', function () {

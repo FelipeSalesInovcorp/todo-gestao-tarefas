@@ -183,8 +183,8 @@ new class extends Component {
     <flux:heading class="sr-only">{{ __('Two-Factor Authentication Settings') }}</flux:heading>
 
     <x-pages::settings.layout
-        :heading="__('Two Factor Authentication')"
-        :subheading="__('Manage your two-factor authentication settings')"
+        :heading="__('Autenticação de dois fatores')"
+        :subheading="__('Gerencie suas configurações de autenticação de dois fatores.')"
     >
         <div class="flex flex-col w-full mx-auto space-y-6 text-sm" wire:cloak>
             @if ($twoFactorEnabled)
@@ -194,7 +194,7 @@ new class extends Component {
                     </div>
 
                     <flux:text>
-                        {{ __('With two-factor authentication enabled, you will be prompted for a secure, random pin during login, which you can retrieve from the TOTP-supported application on your phone.') }}
+                        {{ __('Com a autenticação de dois fatores ativada, você será solicitado a inserir um PIN seguro e aleatório durante o login, que poderá ser obtido no aplicativo compatível com TOTP em seu telefone.') }}
                     </flux:text>
 
                     <livewire:pages::settings.two-factor.recovery-codes :$requiresConfirmation />
@@ -217,7 +217,7 @@ new class extends Component {
                     </div>
 
                     <flux:text variant="subtle">
-                        {{ __('When you enable two-factor authentication, you will be prompted for a secure pin during login. This pin can be retrieved from a TOTP-supported application on your phone.') }}
+                        {{ __('Quando você ativa a autenticação de dois fatores, você será solicitado a inserir um PIN seguro durante o login. Este PIN pode ser obtido em um aplicativo compatível com TOTP em seu telefone.') }}
                     </flux:text>
 
                     <flux:button
@@ -284,7 +284,7 @@ new class extends Component {
                             class="flex-1"
                             wire:click="resetVerification"
                         >
-                            {{ __('Back') }}
+                            {{ __('Voltar') }}
                         </flux:button>
 
                         <flux:button
@@ -293,7 +293,7 @@ new class extends Component {
                             wire:click="confirmTwoFactor"
                             x-bind:disabled="$wire.code.length < 6"
                         >
-                            {{ __('Confirm') }}
+                            {{ __('Confirmar') }}
                         </flux:button>
                     </div>
                 </div>
